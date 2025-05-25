@@ -9,3 +9,6 @@
 | Wire       | 5      | 0.19       | 0.19       |
 | Breadboard | 1      | 0.17       | 0.17       |
 | Total      |        |            | 16.72      |
+
+# Journal
+The journal is in [JOURNAL.md](JOURNAL.md)
