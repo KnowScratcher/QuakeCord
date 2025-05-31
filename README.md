@@ -1,6 +1,6 @@
 # QuakeCord
 <p align="center">
-Whenever an earthquake stikes, you should know what's going on.
+Whenever an earthquake strikes, you should know what's going on.
 </div>
 <p align="center">
     <img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250531model.png" height="400">
@@ -9,7 +9,7 @@ Whenever an earthquake stikes, you should know what's going on.
 # BOM
 | Item                      | Amount | Price(USD) | Total(USD) |
 | ------------------------- | ------ | ---------- | ---------- |
-| ESP32 dev modual          | 1      | 5.34       | 5.34       |
+| ESP32 dev module          | 1      | 5.34       | 5.34       |
 | MPU6050 (soldered)        | 1      | 10.02      | 10.02      |
 | Case (3D print)           | 1      | 0.91       | 0.91       |
 | Jump wire (pin - socket)  | 5      | 0.19       | 0.19       |
