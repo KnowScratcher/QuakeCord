@@ -60,7 +60,7 @@ Because I'm the first time using this software, so I feel a little hard to contr
 
 Then I extract the case from the overall design to make it 3D printable. 
 
-![alt text](https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250531seperate.png)
+![separate](https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250531seperate.png)
 
 Quickly I realized how stupid I am. I just forgot to add a hole for the power line.
 
@@ -70,9 +70,9 @@ After fixing that, the model looks fine, so I export it and put it into Cura to 
 
 A very huge problem popped out. Though I am going to use my school's 3D printer, most of the printers have a time limit of around 2hr, anything above that might got removed by the teacher. So I gotta go find my teacher and try my best to persuade him to let me print this part that takes 6 hr to print (9 hr when all are printed at the same time).
 
-![alt text](https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250531case.png)
+![case print time](https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250531case.png)
 
-![alt text](https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250531cap.png)
+![cap print time](https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250531cap.png)
 
 (時=hour, 分=minute)
 
