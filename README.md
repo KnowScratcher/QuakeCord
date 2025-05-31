@@ -3,7 +3,7 @@
 Whenever an earthquake strikes, you should know what's going on.
 </div>
 <p align="center">
-    <img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250531model.png" height="400">
+    <img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250531new_model.png" height="400">
 </div>
 
 # BOM

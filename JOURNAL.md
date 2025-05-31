@@ -78,4 +78,8 @@ A very huge problem popped out. Though I am going to use my school's 3D printer,
 
 Well, at least I worked something out. Just... have to tell my teacher... Hope this works.
 
-**Total time spent: 6h**
+I worked a little bit more at night to fix the closing gap. Now it look something like this
+
+![new model](https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250531new_model.png)
+
+**Total time spent: 8h**
