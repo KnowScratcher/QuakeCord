@@ -23,6 +23,16 @@ Whenever an earthquake strikes, you should know what's going on.
 # Journal
 The journal is in [JOURNAL.md](JOURNAL.md)
 
+A brief summery of the journal:
+
+## How it all started
+I've been wanting to make something useful and about earthquake since I lived in a place with lots of earthquake. Just this simple reason.
+
+## What will it do?
+- detect earthquake
+- record the acceleration data for further research
+- send notification to discord
+
 # How to make one
 1. Head over to [src > print](https://github.com/KnowScratcher/QuakeCord/tree/main/src/print) and download the file you need.
 
