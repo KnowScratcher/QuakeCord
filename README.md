@@ -62,7 +62,9 @@ I've been wanting to make something useful and about earthquake since I lived in
   
 # Software
 CAD: PowerPoint, FreeCAD
+
 Programming: VS code, Arduino IDE
+
 Image editing: Paint 3D
 
 # Contribute
