@@ -15,7 +15,6 @@ The function I planned to have are:
 - send notification to discord
 
 Here's a quick picture explaining this:
-<!-- ![structure](img/structure.png) -->
 
 ![structure](https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250525structure.png)
 
@@ -35,12 +34,8 @@ After all, I decide to use MPU6050 because its extensibility. It has an accelero
 
 
 I use a breadboard to hold my sensor, which it flat enough at the bottom to make the sensor stable, and also I glued a little piece of plastic that somehow just fit the height of the sensor to hold the sensor's other end. 
-<!-- ![breadboard](img/breadboard.jpg) -->
 
 ![breadboard](https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250525breadboard.jpg)
-
-
-<!-- I also looked up for some library for MPU6050, hope I can find one soon. -->
 
 Then, I found a library for MPU6050 and spend about one hour trying to understand the example program.
 
