@@ -83,3 +83,36 @@ I worked a little bit more at night to fix the closing gap. Now it look somethin
 ![new model](https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250531new_model.png)
 
 **Total time spent: 8h**
+
+# June 2nd: Try printing the model and fixing it.
+
+Today, I ask my teacher to print the case out for me. Well, you know, teacher... he just bring out his super fast 3d printer and get everything done under 2 hrs.
+
+The led holes are too small, so I change it to be bigger in the CAD and also drill the printed model to make things look nice. In fact the alignment is incredible.
+
+<img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250602led.jpg" height="400" alt="led fits well">
+
+The board holder worked as expected, but a little bit tight, so I fixed it again.
+
+<img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250602fit.jpg" height="400" alt="led fits well">
+
+After I got the case, I soon found that there's two main problem:
+
+First is that when I touch the four "feet" of the cap, it instantly break apart, which means it's not a good solution to use the structure. But it surprised me another time by being able to fit and close just using the little "trench" I dug around the edge.
+
+Second is that the hole for power doesn't fit the power plug at all,
+
+<img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250602plug.jpg" height="400" alt="the hole doesn't fit">
+
+
+so I just fix that simply going back suffering in the CAD.
+
+Also, I added a little bump to hold the ESP32 just to make sure it doesn't slip like this
+
+<img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250602slip.png" height="400" alt="board slip when unplugging">
+
+<img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250602bump.png" height="400" alt="bump">
+
+also I worked on the [MagFire](https://github.com/KnowScratcher/MagFire) project today, and you should definitely check it out.
+
+**Total time spent: 2h**
