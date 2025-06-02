@@ -111,3 +111,9 @@ Also, I added a little bump to hold the ESP32 just to make sure it doesn't slip 
 also I worked on the [MagFire](https://github.com/KnowScratcher/MagFire) project today, and you should definitely check it out.
 
 **Total time spent: 2h**
+
+# June 3rd: Fix the model once again
+
+So I some how figured out that this support here might not be strong enough to withstand the force installing of push into it, so I add made the support thicker at the bottom to prevent it from breaking.
+
+<img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250603thicker.png" height="400" alt="I made the support thicker">

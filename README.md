@@ -41,6 +41,14 @@ I've been wanting to make something useful and about earthquake since I lived in
    `QuakeCord_case_case.3mf`: the base of the case.
    
    `QuakeCord_case_cap.3mf`: the cap of the case.
+
+   Also stl file is provided.
+
+   `QuakeCord_case.stl`: the whole case including base and cap. (if you choose this, you don't have to download the others.)
+   
+   `QuakeCord_case_case.stl`: the base of the case.
+   
+   `QuakeCord_case_cap.stl`: the cap of the case.
    
 4. Assemble the parts as follows:
    1. glue or foam tape the breadboard onto the case. If 3d printed, there should be an area marked the same size as the breadboard.
