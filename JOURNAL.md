@@ -104,7 +104,7 @@ so I just fix that simply going back suffering in the CAD.
 
 Also, I added a little bump to hold the ESP32 just to make sure it doesn't slip like this
 
-<img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250602slip.png" height="400" alt="board slip when unplugging">
+<img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250602slip.jpg" height="400" alt="board slip when unplugging">
 
 <img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250602bump.png" height="400" alt="bump">
 
