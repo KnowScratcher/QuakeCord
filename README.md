@@ -32,6 +32,7 @@ I've been wanting to make something useful and about earthquake since I lived in
 - detect earthquake
 - record the acceleration data for further research
 - send notification to discord
+<img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250525structure.png" height="400">
 
 # How to make one
 1. Head over to [src > print](https://github.com/KnowScratcher/QuakeCord/tree/main/src/print) and download the file you need.
