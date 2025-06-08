@@ -7,14 +7,16 @@ Whenever an earthquake strikes, you should know what's going on.
 </div>
 
 # BOM
-| Item                      | Amount | Price(USD) | Total(USD) |
-| ------------------------- | ------ | ---------- | ---------- |
-| ESP32 dev module          | 1      | 5.34       | 5.34       |
-| MPU6050 (soldered)        | 1      | 10.02      | 10.02      |
-| Case (3D print)           | 1      | 0.91       | 0.91       |
-| Jump wire (pin - socket)  | 5      | 0.19       | 0.19       |
-| Breadboard mini (45x35mm) | 1      | 0.17       | 0.17       |
-| Total                     |        |            | 16.63      |
+Because I live in Taiwan, so I'll add a TWD column.
+
+| Item                      | Amount | Price(USD) | Total(USD) | Total(TWD) |
+| ------------------------- | ------ | ---------- | ---------- | ---------- |
+| ESP32 dev module          | 1      | 5.34       | 5.34       | 160        |
+| MPU6050 (soldered)        | 1      | 4.33       | 4.33       | 130        |
+| Case (3D print)           | 1      | 0.91       | 0.91       | 27         |
+| Jump wire (pin - socket)  | 5      | 0.19       | 0.19       | 6          |
+| Breadboard mini (45x35mm) | 1      | 0.17       | 0.17       | 5          |
+| Total                     |        |            | 10.75      | 328        |
 
 > [!NOTE] 
 > - If you'd like to find a case for the project, go ahead.
@@ -51,14 +53,15 @@ I've been wanting to make something useful and about earthquake since I lived in
    
    `QuakeCord_case_cap.stl`: the cap of the case.
    
-4. Assemble the parts as follows:
+2. Assemble the parts as follows:
+   Detail in [wiki](https://github.com/KnowScratcher/QuakeCord/wiki).
    1. glue or foam tape the breadboard onto the case. If 3d printed, there should be an area marked the same size as the breadboard.
    2. plug your MPU6050 onto the breadboard. Note that the pins should align vertically, that is, along the direction which has more holes.
       <img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250531connected.png" alt="what is connected on a breadboard" height="200">
       
       (breadboard image from [arduino store](https://store.arduino.cc/products/mini-breadboard-white))
       
-   4. connect the jump wires from ESP32 to the breadboard as follows:
+   3. connect the jump wires from ESP32 to the breadboard as follows:
       | ESP32 pin | MPU6050 pin (breadboard) |
       | --------- | ------------------------ |
       | 3v3       | VCC                      |
@@ -66,7 +69,8 @@ I've been wanting to make something useful and about earthquake since I lived in
       | D22       | SCL                      |
       | D21       | SDA                      |
       | D15       | INT                      |
-   5. find the script at [not available](about:blank) and upload it to your ESP32.
+   4. find the script at [not available](about:blank) and edit the setting. (Detail in [wiki](https://github.com/KnowScratcher/QuakeCord/wiki).)
+   5. upload the script to your ESP32.
    6. Plug the device somewhere you won't be often and you're good!!!
   
 # Software
