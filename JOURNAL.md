@@ -179,4 +179,4 @@ Ok, I've finished all the part. That was really tired to write code for such a l
 <video controls src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/video/20250608test.mp4" height="400" alt="free fall experiment result3">
 
 Next week I might just print the new model out and assemble it and finish the rest of the job, and hopefully mark a end to this project.
-**Total time spent: 1h**
+**Total time spent: 6h**
