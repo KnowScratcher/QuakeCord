@@ -112,7 +112,7 @@ also I worked on the [MagFire](https://github.com/KnowScratcher/MagFire) project
 
 **Total time spent: 2h**
 
-# June 3rd: Fix the model once again
+# June 3rd: Fix the model once again.
 
 So I some how figured out that this support here might not be strong enough to withstand the force installing of push into it, so I add made the support thicker at the bottom to prevent it from breaking.
 
@@ -120,7 +120,7 @@ So I some how figured out that this support here might not be strong enough to w
 
 **Total time spent: 2h**
 
-# June 4th: Print the second model
+# June 4th: Print the second model.
 
 My teacher seems supportive and help me print another version of the model, this time, the power line fit smoothly. 
 
@@ -137,3 +137,13 @@ I was thinking to add a little hand at the edge of the cap the hold the board so
 Though my teacher suggested me to just put some foam around the board, but to me, it doesn't feel good to tell a random person who want to make this to randomly put some foam in some random places and make it look like a thing taken out from the landfill, so I just decided to fix the CAD and print it again.
 
 **Total time spent: 3h**
+
+# June 6th: Fix the issue of the second model.
+
+So I added some parts to hold the board better 
+
+<img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/202506006holder.jpng" height="400" alt="the board fly up">
+
+and hope it works.
+
+**Total time spent: 1h**
