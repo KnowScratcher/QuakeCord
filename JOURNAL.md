@@ -142,8 +142,41 @@ Though my teacher suggested me to just put some foam around the board, but to me
 
 So I added some parts to hold the board better 
 
-<img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/202506006holder.jpng" height="400" alt="the board fly up">
+<img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250606holder.png" height="400" alt="the board fly up">
 
 and hope it works.
 
+**Total time spent: 1h**
+
+# June 8th: Working on the firmware.
+
+So Today I wrote the firmware for the ESP32.
+
+I first started with the example script of the MPU6050 library. Then I rearrange and separate it into multiple functions that setup and read the data from the sensor.
+
+While I was taking my break, I think of the possibility of running multiple thread on the ESP32, so I looked up online, and I found this [blog (Traditional Chinese)](https://youyouyou.pixnet.net/blog/post/120275992). I read through and found it very interesting so I decided to implement it.
+
+When I test the code, it worked just as I expected. But it was not done yet, still some small bug to fix and I have to link it to discord.
+
+Another thing is that I fell into an issue that the data I'm getting is not gal (a kind of acceleration unit) rather a unknown unit. So I did a little free-fall experiment to the sensor and get its data. The experiment data are in [freefall_experiment.xlsx](https://github.com/KnowScratcher/QuakeCord/tree/main/src/freefall_experiment.xlsx)
+
+<img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250608freefall.png" height="400" alt="free fall experiment result">
+
+<video controls src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/video/20250608freefall.mp4" height="400" alt="free fall experiment result2">
+
+<video controls src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/video/20250608data.mp4" height="400" alt="free fall experiment result3">
+
+and average the result and calculate the ratio of the value get to gal, in which I found out that the data sheet is absolutely wrong. (they say 2048:960 but actually 8028.6:980, probably because I use DMP...)
+
+About an hour later, I finished the webhook for discord. Now the last thing is to let it decide whether it's an earthquake. (Well, I just gonna suffer when I see this)
+
+<img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250608suffer.png" height="400" alt="suffer">
+
+I also got my hand on to the data server. I wrote it in python, which is more familiar to me then arduino. So I quickly finished the server. Now it should be able to store the data sent from the sensor and send signal to restart sensor if it receives unregistered data to make it register again (well, also for calibration purpose).
+
+Ok, I've finished all the part. That was really tired to write code for such a long hour. 
+
+<video controls src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/video/20250608test.mp4" height="400" alt="free fall experiment result3">
+
+Next week I might just print the new model out and assemble it and finish the rest of the job, and hopefully mark a end to this project.
 **Total time spent: 1h**
