@@ -6,12 +6,12 @@
 #include <iostream>
 
 /*---Settings---*/
-// General
+// WIFI
 const char *ssid = ""; // Enter SSID
 const char *password = "";   // Enter Password
 
 // Data Server
-const bool enableServer = true; // Enable server mode, send data to server
+const bool enableServer = false; // Enable server mode, send data to server
 const char *dataServer = ""; // the server data url, with "http://" at the beginning
 const char *registerServer = ""; // the server register url, with "http://" at the beginning
 const char *StationID = ""; // a unique id for the server to recognize your station
@@ -24,8 +24,8 @@ const char *webhook = ""; // discord webhook url
 
     /* uncomment the one you want to use and comment the others*/
 
-#define MMI; // Global (Mercalli intensity scale)
-// #define CWASIS ; // Taiwan
+// #define MMI; // Global (Mercalli intensity scale)
+// #define CWASIS ; // Taiwan (Taiwan seismic intensity scale)
 // #define JMA; // Japan (Japan Meteorological Agency seismic intensity scale)
 // #define CSIS; // China (China seismic intensity scale)
 

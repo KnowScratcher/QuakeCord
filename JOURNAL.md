@@ -180,3 +180,13 @@ Ok, I've finished all the part. That was really tired to write code for such a l
 
 Next week I might just print the new model out and assemble it and finish the rest of the job, and hopefully mark a end to this project.
 **Total time spent: 6h**
+
+# June 9th: Write tutorial for building the project
+
+I finished the tutorial of making a QuakeCord from step 1 to step 7. It was just continuous writing, and kinda boring I would say.
+
+**Total time spent: 3h**
+
+# June 10th: Still writing the tutorial and update the model
+
+**Total time spent: ?h**
