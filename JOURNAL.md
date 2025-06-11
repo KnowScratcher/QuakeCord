@@ -189,4 +189,8 @@ I finished the tutorial of making a QuakeCord from step 1 to step 7. It was just
 
 # June 10th: Still writing the tutorial and update the model
 
-**Total time spent: ?h**
+So I updated the model once again. I add some support onto the cap.
+
+<img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250610support.png" height="400" alt="suffer">
+
+**Total time spent: 1h**
