@@ -68,10 +68,15 @@ I've been wanting to make something useful and about earthquake since I lived in
       | GND       | GND                      |
       | D22       | SCL                      |
       | D21       | SDA                      |
-      | D15       | INT                      |
-   4. find the script at [not available](about:blank) and edit the setting. (Detail in [wiki](https://github.com/KnowScratcher/QuakeCord/wiki).)
-   5. upload the script to your ESP32.
-   6. Plug the device somewhere you won't be often and you're good!!!
+      | D15*      | INT*                     |
+      
+> [!NOTE]
+> An unknown error might appear when you connect the `INT` to the ESP32.
+>
+> If your QuakeCord suddenly stops working about 30 minutes after you plug in, remove the connection of this pin.
+   5. find the script at [not available](about:blank) and edit the setting. (Detail in [wiki](https://github.com/KnowScratcher/QuakeCord/wiki).)
+   6. upload the script to your ESP32.
+   7. Plug the device somewhere you won't be often and you're good!!!
   
 # Software
 CAD: PowerPoint, FreeCAD
