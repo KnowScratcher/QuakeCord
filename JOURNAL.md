@@ -194,3 +194,19 @@ So I updated the model once again. I add some support onto the cap.
 <img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250610support.png" height="400" alt="suffer">
 
 **Total time spent: 1h**
+
+# June 14th: Assemble the parts.
+
+I officially assembled all the parts together and deployed the project. I put the sensor in a vacant room where no one will go and set up my data server, now it's working and collecting data.
+
+also, I found out an issue with the INT pin so I disconnected it so it could work as expected.
+
+<img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250619deploy.jpg" height="400" alt="suffer">
+
+**Total time spent: 1h**
+
+# June 14th: Take picture and finish magazine page.
+
+Today I finished the magazine page for this project and also took picture for it. 
+
+**Total time spent: 1h**
