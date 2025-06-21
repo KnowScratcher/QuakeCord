@@ -103,7 +103,7 @@ You can find the full text of this license in [LICENSE_SOFTWARE](LICENSE_SOFTWAR
 ## Documentation
 
 All documentations, including but not limited to the README.md and wiki pages, are licensed under the **CC-BY-SA-4.0**.
-You can find the full text of this license in [creativecommons.org](https://creativecommons.org/licenses/by-sa/4.0/)
+You can find the full text of this license in [LICENSE_DOCUMENTATION](LICENSE_DOCUMENTATION)
 
 # Contribute
 ## Files
