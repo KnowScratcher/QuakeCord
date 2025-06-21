@@ -92,7 +92,7 @@ This project comprises both hardware designs and software components, each licen
 
 ## Hardware Designs (3D Models, Wiring Diagrams, etc.)
 
-All hardware design files, including 3D models, PCB layouts, schematic diagrams, and associated documentation, are licensed under the **CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S-2.0)**.
+All hardware design files, including 3D models, PCB layouts, schematic diagrams, and associated documentation, excluding the ESP32 board, are licensed under the **CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S-2.0)**.
 You can find the full text of this license in [LICENSE_HARDWARE](LICENSE_HARDWARE).
 
 ## Software (Data Server, ESP32 Firmware, etc.)
