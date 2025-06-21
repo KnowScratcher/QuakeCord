@@ -100,6 +100,11 @@ You can find the full text of this license in [LICENSE_HARDWARE](LICENSE_HARDWAR
 All software components, including the data server application and ESP32 firmware, are licensed under the **GNU Affero General Public License Version 3.0 or later (AGPL-3.0-or-later)**.
 You can find the full text of this license in [LICENSE_SOFTWARE](LICENSE_SOFTWARE).
 
+## Documentation
+
+All documentations, including but not limited to the README.md and wiki pages, are licensed under the **GNU Affero General Public License Version 3.0 or later (AGPL-3.0-or-later)**.
+You can find the full text of this license in [LICENSE_DOCUMENTATION](LICENSE_DOCUMENTATION).
+
 # Contribute
 ## Files
 ### Step Files
