@@ -102,8 +102,8 @@ You can find the full text of this license in [LICENSE_SOFTWARE](LICENSE_SOFTWAR
 
 ## Documentation
 
-All documentations, including but not limited to the README.md and wiki pages, are licensed under the **GNU Affero General Public License Version 3.0 or later (AGPL-3.0-or-later)**.
-You can find the full text of this license in [LICENSE_DOCUMENTATION](LICENSE_DOCUMENTATION).
+All documentations, including but not limited to the README.md and wiki pages, are licensed under the **CC-BY-SA-4.0**.
+You can find the full text of this license in [creativecommons.org](https://creativecommons.org/licenses/by-sa/4.0/)
 
 # Contribute
 ## Files
