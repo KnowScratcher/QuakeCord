@@ -86,6 +86,25 @@ Programming: VS code, Arduino IDE
 
 Image editing: Paint 3D
 
+# Licensing
+
+This project comprises both hardware designs and software components, each licensed separately to ensure clarity and appropriate reciprocity.
+
+## Hardware Designs (3D Models, Wiring Diagrams, etc.)
+
+All hardware design files, including 3D models, PCB layouts, schematic diagrams, and associated documentation, excluding the ESP32 board, are licensed under the **CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S-2.0)**.
+You can find the full text of this license in [LICENSE_HARDWARE](LICENSE_HARDWARE).
+
+## Software (Data Server, ESP32 Firmware, etc.)
+
+All software components, including the data server application and ESP32 firmware, are licensed under the **GNU Affero General Public License Version 3.0 or later (AGPL-3.0-or-later)**.
+You can find the full text of this license in [LICENSE_SOFTWARE](LICENSE_SOFTWARE).
+
+## Documentation
+
+All documentations, including but not limited to the README.md and wiki pages, are licensed under the **CC-BY-SA-4.0**.
+You can find the full text of this license in [creativecommons.org](https://creativecommons.org/licenses/by-sa/4.0/)
+
 # Contribute
 ## Files
 ### Step Files
