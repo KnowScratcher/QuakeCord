@@ -3,7 +3,7 @@
 #include <ArduinoJson.h>
 #include <HTTPClient.h>
 #include <WiFi.h>
-#include <iostream>
+#include <math.h>
 
 /*---Settings---*/
 // WIFI
@@ -11,37 +11,37 @@ const char *ssid = ""; // Enter SSID
 const char *password = "";   // Enter Password
 
 // Data Server
-const bool enableServer = false; // Enable server mode, send data to server
-const char *dataServer = ""; // the server data url, with "http://" at the beginning
+const bool enableServer = false;  // Enable server mode, send data to server
+const char *dataServer = "";     // the server data url, with "http://" at the beginning
 const char *registerServer = ""; // the server register url, with "http://" at the beginning
-const char *StationID = ""; // a unique id for the server to recognize your station
+const char *StationID = "";      // a unique id for the server to recognize your station
 
 // Discord
-const bool enableDiscord = true; // Enable discord mode, send notification to discord
+const bool enableDiscord = true;                                                                                                                   // Enable discord mode, send notification to discord
 const char *webhook = ""; // discord webhook url
 
 // intensity type setting
 
-    /* uncomment the one you want to use and comment the others*/
+/* uncomment the one you want to use and comment the others*/
 
-// #define MMI; // Global (Mercalli intensity scale)
+#define MMI; // Global (Mercalli intensity scale)
 // #define CWASIS ; // Taiwan (Taiwan seismic intensity scale)
 // #define JMA; // Japan (Japan Meteorological Agency seismic intensity scale)
 // #define CSIS; // China (China seismic intensity scale)
 
-    /* note that PEIS (PHIVOLCS earthquake intensity scale) is not supported*/
+/* note that PEIS (PHIVOLCS earthquake intensity scale) is not supported*/
 
 // Constant Setting (do not touch if you don't know what you're doing)
 const float dataRatio = 980.0 / 8028.6; // the ratio of data:gal, 8028.6 is the experiment result
-const float threshold = 3.5; // the threshold of earthquake or noise
-
-// Pin setting (do not touch if you don't know what you're doing)
-int const INTERRUPT_PIN = 15; // Define the interruption pin
-#define LED_BUILTIN 2 // define the led pin, for ESP32 it's 2
+const float threshold = 3.5;            // the threshold of earthquake or noise
 
 /*---End Settings---*/
 
 MPU6050 mpu;
+
+#define LED_BUILTIN 2
+
+int const INTERRUPT_PIN = 15; // Define the interruption #0 pin
 bool blinkState;
 
 /*---MPU6050 Control/Status Variables---*/
@@ -73,6 +73,8 @@ int Target[6];
 int LinesOut;
 int N;
 int i;
+// float zDatas[1000];
+// float zOffset;
 
 int16_t ax, ay, az;
 int lax[4], lay[4], laz[4];
@@ -93,8 +95,14 @@ int t = 0;
 bool sendSignal = false;
 bool discordSignal = false;
 bool discordLock = false;
+bool reportSignal = false;
 int interest = 0;
+int errorLevel = 0;
 float pga = 0;
+float start_x = 0;
+float start_y = 0;
+
+unsigned int baseTime = 0;
 String mode = "unknown";
 JsonDocument sendData;
 JsonDocument buildData;
@@ -113,7 +121,10 @@ void initDMP();
 void initWifi();
 void calibrate();
 int average(int list[]);
+float average(float list[]);
 void getMode();
+float getDirection(float x, float y);
+void addToZ(float data);
 String toIntensity(float pga);
 
 HTTPClient timer;
@@ -154,28 +165,6 @@ void DataControl(void *pvParameters) {
             {
                 "content": "⚠️Warning(yyy)⚠️\nEarthquake Detected\n",
                 "tts": false,
-                "embeds": [
-                    {
-                    "description": "",
-                    "fields": [
-                        {
-                        "name": "📊 Peak Ground Acceleration (PGA)",
-                        "value": "xxx **gal (cm/s^2)**",
-                        "inline": true
-                        },
-                        {
-                        "name": "📈 Intensity",
-                        "value": "yyy (lol)",
-                        "inline": false
-                        }
-                    ],
-                    "title": "Earthquake Report",
-                    "footer": {
-                        "text": "report for reference only."
-                    },
-                    "color": 16711680
-                    }
-                ],
                 "components": [],
                 "actions": {},
                 "flags": 0,
@@ -184,15 +173,9 @@ void DataControl(void *pvParameters) {
             }
             */
             String intensity = toIntensity(pga);
-            String msg = "{\"content\": \"⚠️Warning(" +
-                intensity+
-                ")⚠️\nEarthquake Detected\n\",\"tts\": false,\"embeds\": [{\"description\": \"\",\"fields\": [{\"name\": \"📊 Peak Ground Acceleration (PGA)\",\"value\": \""+ 
-                pga+ 
-                " **gal (cm/s^2)**\",\"inline\": true},{\"name\": \"📈 Intensity\",\"value\": \"" +
-                intensity+
-                " ("+
-                mode+ 
-                ")\",\"inline\": false}],\"title\": \"Earthquake Report\",\"footer\": {\"text\": \"report for reference only.\"},\"color\": 16711680}],\"components\": [],\"actions\": {},\"flags\": 0,\"username\": \"QuakeCord_id\",\"avatar_url\": \"https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/src/icon.png\"}";
+            String msg = "{\"content\": \"⚠️Warning(" + intensity +
+                         ")⚠️\nEarthquake Detected\n\",\"tts\": false,\"components\": [],\"actions\": {},\"flags\": 0,\"username\": \"QuakeCord\",\"avatar_url\": "
+                         "\"https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/src/icon.png\"}";
             JsonDocument jsn;
             deserializeJson(jsn, msg);
             serializeJson(jsn, msg);
@@ -200,12 +183,72 @@ void DataControl(void *pvParameters) {
             sender.begin(webhook);
             sender.addHeader("Content-Type", "application/json;");
             sender.addHeader("Connection", "keep-alive");
-            // Serial.println(msg);
+            Serial.println(msg);
             int code = sender.POST(msg);
-            // Serial.println(code);
+            Serial.println(code);
+        }
+        if (reportSignal) {
+            reportSignal = false;
+            /*
+            {
+                "content": "⚠️Warning(yyy)⚠️\nEarthquake Detected\n",
+                "tts": false,
+                "embeds": [
+                    {
+                        "description": "",
+                        "fields": [
+                            {
+                            "name": "📊 Peak Ground Acceleration (PGA)",
+                            "value": "xxx **gal (cm/s^2)**",
+                            "inline": true
+                            },
+                            {
+                            "name": "📈 Intensity",
+                            "value": "yyy (lol)",
+                            "inline": false
+                            },
+                            {
+                            "name": "🧭 Direction",
+                            "value": "yyy (lol)",
+                            "inline": false
+                            }
+                        ],
+                        "title": "Earthquake Report",
+                        "footer": {
+                            "text": "report for reference only."
+                        },
+                        "color": 16711680,
+                        "image": {
+                            "url": "xxx"
+                        }
+                    }
+                ],
+
+                "components": [],
+                "actions": {},
+                "flags": 0,
+                "username": "QuakeCord",
+                "avatar_url": "https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/src/icon.png"
+            }
+            */
+            String intensity = toIntensity(pga);
+            float dir = getDirection(start_x, start_y);
+            String msg = "{\"content\": \"⚠️Warning(" + intensity + ")⚠️\nEarthquake Detected\n\",\"tts\": false,\"embeds\": [{\"description\": \"\",\"fields\": [{\"name\": \"📊 Peak Ground Acceleration (PGA)\",\"value\": \"" + pga +
+                         " **gal (cm/s^2)**\",\"inline\": true},{\"name\": \"📈 Intensity\",\"value\": \"" + intensity + " (" + mode + ")\",\"inline\": false},{\"name\": \"🧭 Direction (Beta)\",\"value\": \"" + dir + " / " + (dir + 180.0) +
+                         "\",\"inline\": false}],\"title\": \"Earthquake Report\",\"footer\": {\"text\": \"report for reference only.\"},\"color\": 16711680}],\"components\": [],\"actions\": {},\"flags\": 0,\"username\": \"QuakeCord\",\"avatar_url\": \"https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/src/icon.png\"}";
+            JsonDocument jsn;
+            deserializeJson(jsn, msg);
+            serializeJson(jsn, msg);
+            HTTPClient sender;
+            sender.begin(webhook);
+            sender.addHeader("Content-Type", "application/json;");
+            sender.addHeader("Connection", "keep-alive");
+            Serial.println(msg);
+            int code = sender.POST(msg);
+            Serial.println(code);
+            pga = 0;
         }
         delay(1);
-        
     }
 }
 
@@ -220,7 +263,7 @@ void setup() {
     initDevice();
     verifyConnection();
     initDMP();
-    getMode() ;
+    getMode();
     xTaskCreatePinnedToCore(DataControl, /*任務實際對應的Function*/
                             "Task1",     /*任務名稱*/
                             10000,       /*堆疊空間*/
@@ -279,14 +322,11 @@ void loop() {
         mpu.dmpGetAccel(&aa, FIFOBuffer);
         mpu.dmpGetGravity(&gravity, &q);
         mpu.dmpGetLinearAccel(&aaReal, &aa, &gravity);
-        // mpu.dmpGetLinearAccelInWorld(&aaWorld, &aaReal, &q);
-
-        // lax[mainCount] = aaReal.x;
-        // lay[mainCount] = aaReal.y;
-        // laz[mainCount] = aaReal.z;
+        
         float galx = aaReal.x * dataRatio;
         float galy = aaReal.y * dataRatio;
         float galz = aaReal.z * dataRatio;
+        
         Serial.print("x:");
         Serial.print(galx);
         Serial.print(",y:");
@@ -309,24 +349,28 @@ void loop() {
         appendData["y"] = aaReal.y;
         appendData["z"] = aaReal.z;
         if (abs(galx) >= threshold || abs(galy) >= threshold || abs(galz) >= threshold) {
+            if (interest == 0) {
+                start_x = galx;
+                start_y = galy;
+            }
             interest += 1;
             if (abs(pga - max(pga, max(abs(galx), max(abs(galy), abs(galz))))) > 10) {
                 discordLock = false;
             }
             pga = max(pga, max(abs(galx), max(abs(galy), abs(galz))));
-        }else if (interest > 0) {
+        } else if (interest > 0) {
             interest -= 1;
         }
-        if (interest > 5 && !discordLock) {
+        if (interest > 5 && !discordLock && enableDiscord) {
             discordSignal = true;
             discordLock = true;
         }
-        if (interest == 0 && discordLock) {
+        if (interest == 0 && discordLock && enableDiscord) {
             discordLock = false;
-            pga = 0;
+            reportSignal = true;
         }
 
-        if (dt > 10000) {
+        if (dt > 10000 && enableServer) {
             baseSystemTime = millis();
             if (buildData.size() > 0) {
                 sendData = buildData;
@@ -335,6 +379,57 @@ void loop() {
             buildData.clear();
         }
         delay(32);
+        errorLevel = 0;
+    }else{
+        delay(32);
+        errorLevel++;
+        if (errorLevel > 5) {
+            if (mpu.testConnection()) {
+                Serial.println("MPU6050 connection re-established.");
+                // If connection is good, try to re-enable DMP.
+                // This might be redundant if the issue was just a momentary glitch,
+                // but good practice if the MPU6050's internal state got corrupted.
+                Serial.println("Attempting to re-enable DMP...");
+                devStatus = mpu.dmpInitialize();
+                if (devStatus == 0) {
+                    mpu.CalibrateAccel(50); // Calibration Time: generate offsets and calibrate our MPU6050
+                    mpu.CalibrateGyro(50);
+                    // calibrate();
+                    Serial.println("These are the Active offsets: ");
+                    mpu.PrintActiveOffsets();
+                    Serial.println(F("Enabling DMP...")); // Turning ON DMP
+                    mpu.setDMPEnabled(true);
+                    DMPReady = true; // Mark DMP as ready again
+                    Serial.println("DMP re-enabled successfully!");
+                } else {
+                    Serial.print(F("DMP re-initialization failed (code "));
+                    Serial.print(devStatus);
+                    Serial.println(F("). May need a hard reset."));
+                    DMPReady = false; // DMP still not ready
+                }
+            }else {
+                Serial.println("MPU6050 connection still failed. Checking I2C bus...");
+                Wire.end();
+                initWire();
+                if (devStatus == 0) {
+                    mpu.CalibrateAccel(50); // Calibration Time: generate offsets and calibrate our MPU6050
+                    mpu.CalibrateGyro(50);
+                    // calibrate();
+                    Serial.println("These are the Active offsets: ");
+                    mpu.PrintActiveOffsets();
+                    Serial.println(F("Enabling DMP...")); // Turning ON DMP
+                    mpu.setDMPEnabled(true);
+                    DMPReady = true; // Mark DMP as ready again
+                    Serial.println("DMP re-enabled successfully!");
+                } else {
+                    Serial.print(F("DMP re-initialization failed (code "));
+                    Serial.print(devStatus);
+                    Serial.println(F("). May need a hard reset."));
+                    DMPReady = false; // DMP still not ready
+                }
+            }
+            errorLevel = 0;
+        }
     }
 }
 
@@ -398,77 +493,77 @@ void registerTime() {
 }
 
 /*-----Calibrateing-----*/
-void calibrate() {
-    Initialize(); // Initializate and calibrate the sensor
-    for (i = iAx; i <= iGz; i++) {
-        Target[i] = 0; // Fix for ZAccel
-        HighOffset[i] = 0;
-        LowOffset[i] = 0;
-    }
-    Target[iAz] = 0;     // Set the taget for Z axes, original: 16384
-    SetAveraging(NFast); // Fast averaging
-    PullBracketsOut();
-    PullBracketsIn();
-    Serial.println("-------------- DONE --------------");
-}
+// void calibrate() {
+//     Initialize(); // Initializate and calibrate the sensor
+//     for (i = iAx; i <= iGz; i++) {
+//         Target[i] = 0; // Fix for ZAccel
+//         HighOffset[i] = 0;
+//         LowOffset[i] = 0;
+//     }
+//     Target[iAz] = 0;     // Set the taget for Z axes, original: 16384
+//     SetAveraging(NFast); // Fast averaging
+//     PullBracketsOut();
+//     PullBracketsIn();
+//     Serial.println("-------------- DONE --------------");
+// }
 
-/*Initializate function*/
-void Initialize() {
-#if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
-    Wire.begin();
-#elif I2CDEV_IMPLEMENTATION == I2CDEV_BUILTIN_FASTWIRE
-    Fastwire::setup(400, true);
-#endif
-    // Check module connection
-    Serial.println("Testing device connections...");
-    if (mpu.testConnection() == false) {
-        Serial.println("MPU6050 connection failed");
-        while (true)
-            ;
-    } else {
-        Serial.println("MPU6050 connection successful");
-    }
+// /*Initializate function*/
+// void Initialize() {
+// #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
+//     Wire.begin();
+// #elif I2CDEV_IMPLEMENTATION == I2CDEV_BUILTIN_FASTWIRE
+//     Fastwire::setup(400, true);
+// #endif
+//     // Check module connection
+//     Serial.println("Testing device connections...");
+//     if (mpu.testConnection() == false) {
+//         Serial.println("MPU6050 connection failed");
+//         while (true)
+//             ;
+//     } else {
+//         Serial.println("MPU6050 connection successful");
+//     }
 
-    Serial.println("\nPID tuning Each Dot = 100 readings");
-    /*
-      PID tuning (actually PI) works like this: changing the offset in the
-      MPU6050 gives instant results, allowing us to use the Proportional and
-      Integral parts of the PID to find the ideal offsets. The Integral uses the
-      error from the set point (which is zero) and adds a fraction of this error
-      to the integral value. Each reading reduces the error towards the desired
-      offset. The greater the error, the more we adjust the integral value.
+//     Serial.println("\nPID tuning Each Dot = 100 readings");
+//     /*
+//       PID tuning (actually PI) works like this: changing the offset in the
+//       MPU6050 gives instant results, allowing us to use the Proportional and
+//       Integral parts of the PID to find the ideal offsets. The Integral uses the
+//       error from the set point (which is zero) and adds a fraction of this error
+//       to the integral value. Each reading reduces the error towards the desired
+//       offset. The greater the error, the more we adjust the integral value.
 
-      The Proportional part helps by filtering out noise from the integral
-      calculation. The Derivative part is not used due to noise and the sensor
-      being stationary. With the noise removed, the integral value stabilizes
-      after about 600 readings. At the end of each set of 100 readings, the
-      integral value is used for the actual offsets, and the last proportional
-      reading is ignored because it reacts to any noise.
-      */
-    Serial.println("\nXAccel\t\tYAccel\t\tZAccel\t\tXGyro\t\tYGyro\t\tZGyro");
-    mpu.CalibrateAccel(6);
-    mpu.CalibrateGyro(6);
-    Serial.println("\n600 Readings");
-    mpu.PrintActiveOffsets();
-    mpu.CalibrateAccel(1);
-    mpu.CalibrateGyro(1);
-    Serial.println("700 Total Readings");
-    mpu.PrintActiveOffsets();
-    mpu.CalibrateAccel(1);
-    mpu.CalibrateGyro(1);
-    Serial.println("800 Total Readings");
-    mpu.PrintActiveOffsets();
-    mpu.CalibrateAccel(1);
-    mpu.CalibrateGyro(1);
-    Serial.println("900 Total Readings");
-    mpu.PrintActiveOffsets();
-    mpu.CalibrateAccel(1);
-    mpu.CalibrateGyro(1);
-    Serial.println("1000 Total Readings");
-    mpu.PrintActiveOffsets();
-    Serial.println("\nAny of the above offsets will work nicely \n\nProving "
-                   "the PID with other method:");
-}
+//       The Proportional part helps by filtering out noise from the integral
+//       calculation. The Derivative part is not used due to noise and the sensor
+//       being stationary. With the noise removed, the integral value stabilizes
+//       after about 600 readings. At the end of each set of 100 readings, the
+//       integral value is used for the actual offsets, and the last proportional
+//       reading is ignored because it reacts to any noise.
+//       */
+//     Serial.println("\nXAccel\t\tYAccel\t\tZAccel\t\tXGyro\t\tYGyro\t\tZGyro");
+//     mpu.CalibrateAccel(6);
+//     mpu.CalibrateGyro(6);
+//     Serial.println("\n600 Readings");
+//     mpu.PrintActiveOffsets();
+//     mpu.CalibrateAccel(1);
+//     mpu.CalibrateGyro(1);
+//     Serial.println("700 Total Readings");
+//     mpu.PrintActiveOffsets();
+//     mpu.CalibrateAccel(1);
+//     mpu.CalibrateGyro(1);
+//     Serial.println("800 Total Readings");
+//     mpu.PrintActiveOffsets();
+//     mpu.CalibrateAccel(1);
+//     mpu.CalibrateGyro(1);
+//     Serial.println("900 Total Readings");
+//     mpu.PrintActiveOffsets();
+//     mpu.CalibrateAccel(1);
+//     mpu.CalibrateGyro(1);
+//     Serial.println("1000 Total Readings");
+//     mpu.PrintActiveOffsets();
+//     Serial.println("\nAny of the above offsets will work nicely \n\nProving "
+//                    "the PID with other method:");
+// }
 
 void SetAveraging(int NewN) {
     N = NewN;
@@ -620,26 +715,35 @@ void ShowProgress() {
 }
 
 void getMode() {
-    #ifdef MMI; // Global (Mercalli intensity scale)
-        mode = "MMI";
-    #endif
+#ifdef MMI; // Global (Mercalli intensity scale)
+    mode = "MMI";
+#endif
 
-    #ifdef CWASIS ; // Taiwan
-        mode = "CWASIS";
-    #endif
+#ifdef CWASIS; // Taiwan
+    mode = "CWASIS";
+#endif
 
-    #ifdef JMA; // Japan (Japan Meteorological Agency seismic intensity scale)
-        mode = "JMA";
-    #endif
+#ifdef JMA; // Japan (Japan Meteorological Agency seismic intensity scale)
+    mode = "JMA";
+#endif
 
-    #ifdef CSIS; // China (China seismic intensity scale)
-        mode = "CSIS";
-    #endif
+#ifdef CSIS; // China (China seismic intensity scale)
+    mode = "CSIS";
+#endif
 }
 
 int average(int list[]) {
     int items = sizeof(list) / sizeof(list[0]);
-    int arraySum = 0;
+    long long arraySum = 0;
+    for (int index = 0; index < items; index++) {
+        arraySum += list[index];
+    }
+    return arraySum / items;
+}
+
+float average(float list[]) {
+    int items = sizeof(list) / sizeof(list[0]);
+    long double arraySum = 0;
     for (int index = 0; index < items; index++) {
         arraySum += list[index];
     }
@@ -777,3 +881,18 @@ String toIntensity(float pga) {
     return "12(XII)";
 #endif
 }
+
+float getDirection(float x, float y) {
+    double res = atan2(x, y);
+    if (res < 0) {
+        res += M_PI;
+    }
+    return (180 / M_PI) / res;
+}
+
+// void addToZ(float data) {
+//     for (int i = 999; i >= 0; i--) {
+//         zDatas[i + 1] = zDatas[i];
+//     }
+//     zDatas[0] = data;
+// }
