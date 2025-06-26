@@ -210,3 +210,14 @@ also, I found out an issue with the INT pin so I disconnected it so it could wor
 Today I finished the magazine page for this project and also took picture for it. 
 
 **Total time spent: 1h**
+
+# June 26th: Got OSHWA certificate.
+
+I got the open source certificate from OSHWA. That was really an encouragement for me to keep doing this.
+
+
+Here, take a look at this beautiful thing
+
+<img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/certification-mark-TW000006-stacked.svg" height="400" alt="certificate">
+
+**Total time spent: 0h**

@@ -5,7 +5,9 @@ Whenever an earthquake strikes, you should know what's going on.
 
 <div align="center">
     <img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250531new_model.png" height="400">
+    <img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/certification-mark-TW000006-stacked.svg" height="400" alt="certificate">
 </div>
+
 
 # BOM
 Because I live in Taiwan, so I'll add a TWD column.
@@ -89,6 +91,9 @@ Image editing: Paint 3D
 # Licensing
 
 This project comprises both hardware designs and software components, each licensed separately to ensure clarity and appropriate reciprocity.
+
+## Long story short
+<img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/license.svg" height="400" alt="certificate">
 
 ## Hardware Designs (3D Models, Wiring Diagrams, etc.)
 
