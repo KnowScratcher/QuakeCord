@@ -220,4 +220,6 @@ Here, take a look at this beautiful thing
 
 <img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/certification-mark-TW000006-stacked.svg" height="400" alt="certificate">
 
+Also, the PCB finally arrived.
+
 **Total time spent: 0h**
