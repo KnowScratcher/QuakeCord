@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% block head %}
+<script src="{{ url_for('static',path='apexcharts.min.js') }}"></script>
+{% endblock %}
+{% block content %}
+<div class="w-full bg-white rounded-lg shadow-sm p-4 h-full">
+    <div class="mb-6">
+        <label for="id" class="mb-2 text-sm font-medium text-gray-900">Server ip:port</label>
+        <div class="flex w-full gap-5">
+            <input type="text" id="ip_input"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                placeholder="ip and port" value="" required />
+            <input type="submit" value="Connect" name="" id="connect_btn"
+                class="btn h-full bg-blue-500 rounded-2xl p-4 text-white active:shadow-2xl active:bg-blue-800">
+        </div>
+    </div>
+    <div class="flex flex-col h-full">
+        <div id="line-chart_x"></div>
+        <div id="line-chart_y"></div>
+        <div id="line-chart_z"></div>
+    </div>
+</div>
+<script>
+
+    const options = {
+        chart: {
+            height: "180vh",
+            maxWidth: "100%",
+            type: "line",
+            fontFamily: "Inter, sans-serif",
+            dropShadow: {
+                enabled: false,
+            },
+            toolbar: {
+                show: false,
+            },
+        },
+        tooltip: {
+            enabled: true,
+            x: {
+                show: false,
+            },
+        },
+        dataLabels: {
+            enabled: false,
+        },
+        stroke: {
+            width: 1,
+        },
+        grid: {
+            show: true,
+            strokeDashArray: 4,
+            padding: {
+                left: 2,
+                right: 2,
+                top: -26
+            },
+        },
+        series: [
+            {
+                name: "w",
+                data: [],
+                color: "#1A56DB",
+            }
+        ],
+        legend: {
+            show: false
+        },
+        stroke: {
+            curve: 'straight'
+        },
+        xaxis: {
+            categories: [],
+            labels: {
+                show: true,
+                hideOverlappingLabels: true,
+                rotate: 0,
+                style: {
+                    fontFamily: "Inter, sans-serif",
+                    cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+                }
+            },
+            axisBorder: {
+                show: false,
+            },
+            axisTicks: {
+                show: false,
+            },
+        },
+        yaxis: {
+            show: true,
+        }
+    }
+    let chart;
+    if (document.getElementById("line-chart_x") && typeof ApexCharts !== 'undefined') {
+        chart_x = new ApexCharts(document.getElementById("line-chart_x"), options);
+        chart_y = new ApexCharts(document.getElementById("line-chart_y"), options);
+        chart_z = new ApexCharts(document.getElementById("line-chart_z"), options);
+        chart_x.render();
+        chart_y.render();
+        chart_z.render();
+    }
+
+    let ws;
+    let cats = [];
+    let xData = [];
+    let yData = [];
+    let zData = [];
+    let ip_input = document.getElementById("ip_input");
+    let connect_btn = document.getElementById("connect_btn");
+    ip_input.value = location.host;
+    connect_btn.addEventListener("click", function () {
+        ws = new WebSocket(`ws://${ip_input.value}/ws`);
+        connect_btn.value = "Connecting...";
+        ws.onopen = () => {
+            connect_btn.value = "Connected";
+        }
+        ws.onclose = () => {
+            connect_btn.value = "Connect";
+        }
+        ws.onmessage = (event) => {
+            d = JSON.parse(event.data);
+            if (cats.length > 800) {
+                cats = cats.slice(300, 2000);
+                xData = xData.slice(300, 2000);
+                yData = yData.slice(300, 2000);
+                zData = zData.slice(300, 2000);
+            }
+            cats = cats.concat(d["dt"]);
+            xData = xData.concat(d["x"]);
+            yData = yData.concat(d["y"]);
+            zData = zData.concat(d["z"]);
+            chart_x.updateOptions({
+                series: [
+                    {
+                        name: "x",
+                        data: xData,
+                        color: "#1A56DB",
+                    }],
+                xaxis: {
+                    categories: cats,
+                }
+            });
+            chart_y.updateOptions({
+                series: [
+                    {
+                        name: "y",
+                        data: yData,
+                        color: "#31a34f",
+                    }],
+                xaxis: {
+                    categories: cats,
+                }
+            });
+            chart_z.updateOptions({
+                series: [
+                    {
+                        name: "z",
+                        data: zData,
+                        color: "#a33131",
+                    }],
+                xaxis: {
+                    categories: cats,
+                }
+            });
+            console.log(cats);
+        };
+    });
+</script>
+{% endblock %}

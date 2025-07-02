@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.11",
+    "apexcharts": "^3.46.0",
+    "tailwindcss": "^4.1.11"
+  },
+  "scripts": {
+    "dev": "npx @tailwindcss/cli -i ./styles/app.css -o ../static/css/app.css --watch"
+  }
+}
