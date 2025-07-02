@@ -223,3 +223,16 @@ Here, take a look at this beautiful thing
 Also, the PCB finally arrived.
 
 **Total time spent: 0h**
+
+# July 1st: Update server to allow live data visualization.
+I rewrite the server program to allow me to access the data right after it's sent to the server.
+
+I made a web ui and add some charts to show the streamed the data from websocket.
+
+**Total time spent: 3h**
+
+# July 2nd: Finish up the update.
+
+So I finish up the update of the streaming page and push to github.
+
+**Total time spent: 1h**
