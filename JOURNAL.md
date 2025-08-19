@@ -236,3 +236,5 @@ I made a web ui and add some charts to show the streamed the data from websocket
 So I finish up the update of the streaming page and push to github.
 
 **Total time spent: 1h**
+
+# August 19th: edit image on readme.

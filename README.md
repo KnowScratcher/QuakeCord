@@ -4,7 +4,7 @@ Whenever an earthquake strikes, you should know what's going on.
 </p>
 
 <div align="center">
-    <img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250531new_model.png" height="400"><br>
+    <img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/20250619deploy.jpg" height="400"><br>
     <img src="https://raw.githubusercontent.com/KnowScratcher/QuakeCord/refs/heads/main/img/certification-mark-TW000006-stacked.svg" width="30%" alt="certificate">
 </div>
 
