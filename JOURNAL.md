@@ -238,3 +238,4 @@ So I finish up the update of the streaming page and push to github.
 **Total time spent: 1h**
 
 # August 19th: edit image on readme.
+**Total time spent: 0h**
