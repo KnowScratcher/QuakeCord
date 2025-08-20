@@ -28,7 +28,10 @@ class ConnectionManager:
 
     async def broadcast(self, msg:dict):
         for connection in self.activate:
-            await connection.send_json(msg)
+            try:
+                await connection.send_json(msg)
+            except:
+                self.activate.remove(connection)
 
 manager = ConnectionManager()
 """ Websocket manager"""
