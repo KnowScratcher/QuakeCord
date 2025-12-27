@@ -1,1 +1,3 @@
-src/firmware_private
+src/firmware_private*
+__pycache__/
+src/server/data/

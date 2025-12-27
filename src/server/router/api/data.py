@@ -1,5 +1,4 @@
 from fastapi import APIRouter
-from fastapi.responses import PlainTextResponse, JSONResponse
 from fastapi.background import BackgroundTasks
 from pydantic import BaseModel
 from dependencies import *
@@ -86,10 +85,10 @@ async def process(data: Data):
 
 @router.post("/data")
 async def dataGateway(data: Data, background: BackgroundTasks):
-    if data.id in lastCountTime:  # data.id in registerTime and
-        logger.success(f"{data.id} is registered!")
-        background.add_task(process, data)
-        logger.info(f"Data length: {len(data.data)}.")
-        return True
-    logger.error(f"{data.id} is not registered, rejecting data.")
-    return False
+        if data.id in lastCountTime:  # data.id in registerTime and
+            logger.success(f"{data.id} is registered!")
+            background.add_task(process, data)
+            logger.info(f"Data length: {len(data.data)}.")
+            return True
+        logger.error(f"{data.id} is not registered, rejecting data.")
+        return False
