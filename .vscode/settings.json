@@ -1,0 +1,4 @@
+{
+    "todo-tree.tree.scanMode": "workspace",
+    "python-envs.defaultEnvManager": "ms-python.python:system"
+}

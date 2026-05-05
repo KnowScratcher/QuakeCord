@@ -239,3 +239,8 @@ So I finish up the update of the streaming page and push to github.
 
 # August 19th: edit image on readme.
 **Total time spent: 0h**
+
+# December 27th: Fix Server issue, add extra Debugging code
+
+Well, the new firmware is still in alpha test, not available right now.
+**Total time spent: 3h**

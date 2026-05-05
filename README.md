@@ -1,3 +1,6 @@
+> [!WARNING]
+> The server part will be in a different repo, the code here is outdated. See [QuakeCord-server](https://github.com/KnowScratcher/QuakeCord-server).
+
 # QuakeCord
 <p align="center">
 Whenever an earthquake strikes, you should know what's going on.
@@ -24,6 +27,7 @@ Because I live in Taiwan, so I'll add a TWD column.
 > [!NOTE] 
 > - If you'd like to find a case for the project, go ahead.
 > - A 3D printed case will be a cheaper option. (Assuming PLA costs $13.4/KG)
+
 
 # Journal
 The journal is in [JOURNAL.md](JOURNAL.md)
